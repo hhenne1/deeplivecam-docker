@@ -1,0 +1,19 @@
+
+services: 
+  deeplivecam-docker:
+    container_name: deeplivecam-docker
+    restart: unless-stopped
+    image: hhenne1/deeplivecam-docker:latest
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "5800:5800"
+    environment:
+      - TZ=Europe/Berlin
+    deploy:
+        resources:
+            reservations:
+                devices:
+                    - driver: nvidia
+                      count: 1
+                      capabilities: [gpu]
